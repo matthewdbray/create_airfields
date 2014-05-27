@@ -1,0 +1,7 @@
+This creates meshes using a version of meshpy - tetgen/triangle/gmsh wrapped in python using boost.
+It creates cubes with 3 layers of varying thickness, and using adaptive meshing.
+Each layer has a minimum of three nodes for use in ADH.
+This also prints out the facets and nodes into a file as well.
+At the current moment it is creating the node cards from the elevation of the nodes which will not work 
+    if the bottom of the mesh is not flat.  This would probably require creating our own version of tetgen.cxx to resolve this.
+
