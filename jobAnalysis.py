@@ -1,9 +1,10 @@
 import os, sys
 
 class JobAnalysis():
-    def __init__(self, lsf='runall.lsf'): 
+    def __init__(self, lsf='runall.lsf',simName): 
         self.cwd = os.getcwd()
         self.lsf = lsf
+        self.simName = simName
 
     def getCurrDateTime(self):
         ''' Returns the date and time back in a format that is like
@@ -36,7 +37,7 @@ class JobAnalysis():
             for data in data_full:
                 try:
                     if data.split()[0] == '#PBS':
-                        PBS.append(data.rstrip('\n'))
+                        PBS.append(data)
                 except:
                     pass
         return PBS
@@ -48,7 +49,7 @@ class JobAnalysis():
             for data in data_full:
                 try:
                     if data.split()[0].find('aprun') != -1:
-                        aprun.append(data.rstrip('\n'))
+                        aprun.append(data)
                 except:
                     pass
         return aprun
@@ -58,5 +59,16 @@ class JobAnalysis():
             data = f.readlines()
         
         return data
+
+    def getPreQCTxt(self): 
+        txt = []
+        os.chdir('PreQC')
+        with open(simName+'.txt') as f:
+            for line in f:
+                txt.append(line)
+        os.chdir('../')
+        return txt
+
+                
 
 
