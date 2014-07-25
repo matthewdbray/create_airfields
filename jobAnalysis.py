@@ -69,17 +69,18 @@ class JobAnalysis():
         os.chdir('../')
         return txt
 
-    def readMesh(fname): 
+    def readMesh(self, fname):
+        import sys
         twoDM = False
         threeDM = False
-        ext = fname.split('.')[0]
+        ext = fname.split('.')[-1]
         if ext == '2dm':
             twoDM = True
         elif ext == '3dm':
             threeDM = True
         else:
             print 'Invalid extension'
-            exit()
+            sys.exit()
         nx = []
         ny = []
         nz = []
@@ -106,14 +107,17 @@ class JobAnalysis():
         max_z = max(nz) 
         return (nnodes, nfacets, min_x, max_x, min_y, max_y, min_z, max_z)
 
-    def printMeshStats(stats):
-        nnodes, nfacets, min_x, max_x, min_y, max_y, max_y, min_z, max_z = stats
+    def printMeshStats(self, stats):
+        nnodes, nfacets, min_x, max_x, min_y, max_y, min_z, max_z = stats
         ctr_x = (max_x-min_x)/2
         ctr_y = (max_y-min_y)/2
         ctr_z = (max_z-min_z)/2
         data_str = 'Number of nodes: %d\n' % nnodes
         data_str += 'Number of facets: %d\n' %nfacets
-        data_str += 'Min x: %10.3f Max x: %10.3f Ctr x: %10.3f' % (min_x, max_x, ctr_x)
-        data_str += 'Min y: %10.3f Max y: %10.3f Ctr y: %10.3f' % (min_y, max_y, ctr_y)
-        data_str += 'Min z: %10.3f Max z: %10.3f Ctr z: %10.3f' % (min_z, max_z, ctr_z)
+        data_str += 'Min x: %10.3f\tMax x: %10.3f\tCtr x: %10.3f\n' % (min_x, max_x, ctr_x)
+        data_str += 'Min y: %10.3f\tMax y: %10.3f\tCtr y: %10.3f\n' % (min_y, max_y, ctr_y)
+        data_str += 'Min z: %10.3f\tMax z: %10.3f\tCtr z: %10.3f\n' % (min_z, max_z, ctr_z)
+        data_str += 'Extents: %g m x %g m\n' % (max_x - min_x, max_y - min_y)
+        data_str += 'Depth: %g m' % (max_z - min_z) 
         return data_str
+
