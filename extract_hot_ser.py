@@ -1,4 +1,4 @@
-#!/u/mdbray/python/epd-7.3-1-rh5-x86_64/bin/python2.7
+#!/usr/bin/env python
 __author__ = 'matthewbray'
 
 import h5py
